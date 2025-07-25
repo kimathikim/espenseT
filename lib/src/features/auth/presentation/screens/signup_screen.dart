@@ -1,3 +1,4 @@
+import 'package:expensetracker/src/shared/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:expensetracker/src/features/dashboard/presentation/screens/home_screen.dart';
