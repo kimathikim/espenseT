@@ -1,0 +1,63 @@
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.buildlog/
+.history
+.svn/
+
+# Flutter/Dart
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+/build/
+/ios/Pods/
+/ios/Flutter/App.framework
+/ios/Flutter/engine.version
+/ios/Flutter/flutter_assets/
+/ios/Flutter/.last_build_id
+/ios/.symlinks/
+/ios/Runner/GeneratedPluginRegistrant.*
+/android/app/src/main/java/io/flutter/plugins/
+/android/.gradle/
+/android/app/build/
+/android/build/
+/android/gradle/
+/android/gradlew
+/android/gradlew.bat
+/android/local.properties
+/android/key.properties
+/android/app/src/main/res/values/local.properties
+/android/app/src/main/res/values-night/local.properties
+/android/app/src/main/res/values-v21/local.properties
+
+# Environment variables
+.env
+
+# IDE specific
+.idea/
+*.iml
+/vs/
+/windows/
+/linux/
+/macos/
+/web/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# User-specific tooling
+.bmad-core/
+.clinerules/
+.cursor/
+.gemini/
+.vscode/
+web-bundles/
