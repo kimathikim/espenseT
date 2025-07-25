@@ -17,3 +17,30 @@
 
 *   Leverage the `supabase-flutter` library for all authentication operations.
 *   Focus on a clean, simple UI for the forms as defined in the architecture document.
+
+## Dev Agent Record
+
+### Status
+Completed
+
+### Completion Notes
+- Created `SplashScreen` to handle initial routing based on auth state.
+- Implemented `LoginScreen` with email/password sign-in.
+- Implemented `SignUpScreen` with email/password sign-up.
+- Created `HomeScreen` with a logout button.
+- Updated `main.dart` to use the `SplashScreen` as the entry point.
+- All authentication is handled using the `supabase-flutter` package.
+
+### File List
+- `lib/src/features/auth/presentation/screens/splash_screen.dart`
+- `lib/src/features/auth/presentation/screens/login_screen.dart`
+- `lib/src/features/auth/presentation/screens/signup_screen.dart`
+- `lib/src/features/dashboard/presentation/screens/home_screen.dart`
+- `lib/main.dart`
+
+### Change Log
+- **MODIFIED**: `lib/main.dart` - Changed home to `SplashScreen` and removed `WelcomeScreen`.
+- **ADDED**: `lib/src/features/auth/presentation/screens/splash_screen.dart` - New file.
+- **ADDED**: `lib/src/features/auth/presentation/screens/login_screen.dart` - New file.
+- **ADDED**: `lib/src/features/auth/presentation/screens/signup_screen.dart` - New file.
+- **ADDED**: `lib/src/features/dashboard/presentation/screens/home_screen.dart` - New file.

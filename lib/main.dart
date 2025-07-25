@@ -1,3 +1,4 @@
+import 'package:expensetracker/src/features/auth/presentation/screens/splash_screen.dart';
 import 'package:expensetracker/src/shared/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -24,42 +25,7 @@ class MyApp extends StatelessWidget {
       title: 'M-Pesa Expense Tracker',
       theme: AppTheme.lightTheme,
       debugShowCheckedModeBanner: false,
-      home: const WelcomeScreen(),
-    );
-  }
-}
-
-class WelcomeScreen extends StatelessWidget {
-  const WelcomeScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Welcome'),
-      ),
-      body: Container(
-        width: double.infinity,
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              AppColors.primaryGradientStart,
-              AppColors.primaryGradientEnd,
-            ],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-        ),
-        child: const Center(
-          child: Text(
-            'Welcome to M-Pesa Expense Tracker!',
-            style: TextStyle(
-              color: AppColors.whiteText,
-              fontSize: 22,
-            ),
-          ),
-        ),
-      ),
+      home: const SplashScreen(),
     );
   }
 }
