@@ -16,3 +16,4 @@
 
 *   Search performance is key. The implementation should be fast and responsive, even with a large number of transactions.
 *   Consider how the search will interact with the local cache for the offline feature.
+*   All UI components must adhere to the theme defined in `lib/src/shared/theme.dart`.

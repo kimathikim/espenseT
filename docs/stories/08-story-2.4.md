@@ -16,3 +16,4 @@
 
 *   This is a key architectural feature. Refer to the architecture document for the detailed offline support strategy.
 *   The local database choice (Drift or Isar) will be critical here.
+*   All UI components must adhere to the theme defined in `lib/src/shared/theme.dart`.

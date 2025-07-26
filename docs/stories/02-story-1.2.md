@@ -17,6 +17,7 @@
 
 *   Leverage the `supabase-flutter` library for all authentication operations.
 *   Focus on a clean, simple UI for the forms as defined in the architecture document.
+*   All UI components must adhere to the theme defined in `lib/src/shared/theme.dart`.
 
 ## Dev Agent Record
 

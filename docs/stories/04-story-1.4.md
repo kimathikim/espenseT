@@ -17,3 +17,4 @@
 
 *   This is a critical security step. Ensure all sensitive data is handled via Supabase Vault as specified in the architecture.
 *   The UI should inspire trust and clearly communicate the security measures in place.
+*   All UI components must adhere to the theme defined in `lib/src/shared/theme.dart`.

@@ -16,3 +16,4 @@
 
 *   Follow the official Supabase documentation for implementing Google and Apple sign-in with Flutter.
 *   This will require configuration in the Google Cloud Console and Apple Developer portal.
+*   All UI components must adhere to the theme defined in `lib/src/shared/theme.dart`.

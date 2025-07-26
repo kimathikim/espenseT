@@ -16,3 +16,4 @@
 
 *   The default categories should be seeded into the database for new users.
 *   The UI for category selection should be intuitive and fast.
+*   All UI components must adhere to the theme defined in `lib/src/shared/theme.dart`.

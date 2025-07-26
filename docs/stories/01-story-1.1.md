@@ -16,3 +16,4 @@
 
 *   Refer to the `docs/architecture.md` for the defined Flutter project structure.
 *   Ensure that Supabase keys are stored securely and not hardcoded in the source code.
+*   All UI components must adhere to the theme defined in `lib/src/shared/theme.dart`.

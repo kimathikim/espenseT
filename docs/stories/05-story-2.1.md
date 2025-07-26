@@ -17,3 +17,4 @@
 
 *   The serverless function needs to be robust and handle potential API errors from M-Pesa gracefully.
 *   The Flutter app should display the transactions in a clean, readable list.
+*   All UI components must adhere to the theme defined in `lib/src/shared/theme.dart`.

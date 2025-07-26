@@ -16,3 +16,4 @@
 
 *   The calculation should be performed efficiently, likely on the client-side from the locally cached data to ensure responsiveness.
 *   The UI should be clean and the summary figure should be the most prominent element on the dashboard.
+*   All UI components must adhere to the theme defined in `lib/src/shared/theme.dart`.

@@ -17,3 +17,4 @@
 
 *   Choose a charting library for Flutter that is performant and easy to customize (e.g., `fl_chart`).
 *   The chart should be visually appealing and consistent with the app's overall design.
+*   All UI components must adhere to the theme defined in `lib/src/shared/theme.dart`.

@@ -17,3 +17,4 @@
 
 *   Ensure that Row Level Security is correctly configured so users can only manage their own custom categories.
 *   The UI should be simple and follow the overall design language of the app.
+*   All UI components must adhere to the theme defined in `lib/src/shared/theme.dart`.
