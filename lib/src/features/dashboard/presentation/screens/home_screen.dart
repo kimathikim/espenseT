@@ -1,4 +1,6 @@
 import 'package:expensetracker/src/features/account/presentation/screens/link_account_screen.dart';
+import 'package:expensetracker/src/features/categories/presentation/screens/categories_screen.dart';
+import 'package:expensetracker/src/features/transactions/presentation/screens/transactions_screen.dart';
 import 'package:expensetracker/src/shared/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -79,6 +81,28 @@ class _HomeScreenState extends State<HomeScreen> {
                   );
                 },
                 child: const Text('Link M-Pesa Account'),
+              ),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const TransactionsScreen(),
+                    ),
+                  );
+                },
+                child: const Text('View Transactions'),
+              ),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const CategoriesScreen(),
+                    ),
+                  );
+                },
+                child: const Text('Manage Categories'),
               ),
             ],
           ),

@@ -18,3 +18,25 @@
 *   The serverless function needs to be robust and handle potential API errors from M-Pesa gracefully.
 *   The Flutter app should display the transactions in a clean, readable list.
 *   All UI components must adhere to the theme defined in `lib/src/shared/theme.dart`.
+
+## Dev Agent Record
+
+### Status
+In Progress
+
+### Completion Notes
+- Created the `Transaction` model and `TransactionRepository` to handle transaction data.
+- Updated the `TransactionsScreen` to fetch and display real transaction data from the repository.
+- Created the Supabase Edge Function `sync-mpesa-transactions` to fetch transactions from the M-Pesa API and store them in the database.
+
+### File List
+- `lib/src/features/transactions/domain/transaction.dart`
+- `lib/src/features/transactions/data/transaction_repository.dart`
+- `lib/src/features/transactions/presentation/screens/transactions_screen.dart`
+- `supabase/functions/sync-mpesa-transactions/index.ts`
+
+### Change Log
+- **ADDED**: `lib/src/features/transactions/domain/transaction.dart` - New file.
+- **ADDED**: `lib/src/features/transactions/data/transaction_repository.dart` - New file.
+- **MODIFIED**: `lib/src/features/transactions/presentation/screens/transactions_screen.dart` - Updated to fetch and display real data.
+- **ADDED**: `supabase/functions/sync-mpesa-transactions/index.ts` - New file.

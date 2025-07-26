@@ -1,57 +1,74 @@
-import { serve } from 'https://deno.land/std@0.168.0/http/server.ts'
+import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.0.0";
+
+const mpesaApiUrl = "https://sandbox.safaricom.co.ke/mpesa/c2b/v1/simulate";
 
 serve(async (req) => {
   try {
-    // 1. Get the Supabase client
-    // NOTE: This requires setting up the Supabase client in your function's environment
-    // const supabase = getSupabaseClient(req.headers.get('Authorization'))
+    const { userId } = await req.json();
 
-    // 2. Placeholder for M-Pesa API integration
-    // This is where you would connect to the M-Pesa API to fetch new transactions.
-    // This will require secure handling of API keys and user credentials.
-    console.log('Connecting to M-Pesa API to fetch transactions...');
+    // 1. Create a Supabase client
+    const supabase = createClient(
+      Deno.env.get("SUPABASE_URL") ?? "",
+      Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? ""
+    );
 
-    // 3. Placeholder for fetching users who have linked their accounts
-    // const { data: users, error: usersError } = await supabase
-    //   .from('users')
-    //   .select('id, mpesa_credentials') // Fictional column
-    //   .eq('mpesa_linked', true);
+    // 2. Get the user's M-Pesa credentials from Supabase Vault
+    //    (This is a placeholder, actual implementation will depend on how you store secrets)
+    const { data: secretData, error: secretError } = await supabase
+      .from("user_secrets")
+      .select("mpesa_credentials")
+      .eq("user_id", userId)
+      .single();
 
-    // if (usersError) throw usersError;
+    if (secretError) {
+      throw new Error(`Failed to retrieve M-Pesa credentials: ${secretError.message}`);
+    }
 
-    // 4. Loop through users and process transactions
-    // for (const user of users) {
-    //   const newTransactions = await fetchMpesaTransactions(user.mpesa_credentials);
-    //   for (const transaction of newTransactions) {
-    //     const { error: insertError } = await supabase.from('expenses').insert({
-    //       user_id: user.id,
-    //       amount: transaction.amount,
-    //       description: transaction.description,
-    //       transaction_date: transaction.date,
-    //       // category_id will be null by default, user needs to categorize it
-    //     });
-    //     if (insertError) console.error(`Failed to insert transaction for user ${user.id}:`, insertError);
-    //   }
-    // }
+    const mpesaCredentials = secretData.mpesa_credentials;
 
-    const response = {
-      message: "M-Pesa transaction sync process completed (placeholder).",
-    };
-
-    return new Response(
-      JSON.stringify(response),
-      {
-        headers: { 'Content-Type': 'application/json' },
-        status: 200,
+    // 3. Fetch transactions from M-Pesa API (this is a placeholder)
+    //    In a real scenario, you would make a POST request to the M-Pesa API
+    //    with the necessary authentication headers and body.
+    const mpesaResponse = await fetch(mpesaApiUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${mpesaCredentials.access_token}`,
       },
-    )
+      body: JSON.stringify({
+        // ... M-Pesa API request body
+      }),
+    });
+
+    if (!mpesaResponse.ok) {
+      throw new Error(`M-Pesa API request failed: ${mpesaResponse.statusText}`);
+    }
+
+    const transactions = await mpesaResponse.json();
+
+    // 4. Insert new transactions into the Supabase database
+    const { error: insertError } = await supabase.from("transactions").insert(
+      transactions.map((tx: any) => ({
+        description: tx.description,
+        amount: tx.amount,
+        date: tx.date,
+        user_id: userId,
+        category_id: "uncategorized", // Default category
+      }))
+    );
+
+    if (insertError) {
+      throw new Error(`Failed to insert transactions: ${insertError.message}`);
+    }
+
+    return new Response(JSON.stringify({ success: true }), {
+      headers: { "Content-Type": "application/json" },
+    });
   } catch (error) {
-    return new Response(
-      JSON.stringify({ error: error.message }),
-      {
-        headers: { 'Content-Type': 'application/json' },
-        status: 500,
-      },
-    )
+    return new Response(JSON.stringify({ error: error.message }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" },
+    });
   }
-})
+});
