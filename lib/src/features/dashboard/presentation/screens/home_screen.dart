@@ -1,3 +1,4 @@
+import 'package:expensetracker/src/features/account/presentation/screens/link_account_screen.dart';
 import 'package:expensetracker/src/shared/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -60,10 +61,26 @@ class _HomeScreenState extends State<HomeScreen> {
         decoration: const BoxDecoration(
           gradient: AppColors.primaryGradient,
         ),
-        child: const Center(
-          child: Text(
-            'Welcome to your dashboard!',
-            style: TextStyle(color: AppColors.whiteText, fontSize: 24),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text(
+                'Welcome to your dashboard!',
+                style: TextStyle(color: AppColors.whiteText, fontSize: 24),
+              ),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const LinkAccountScreen(),
+                    ),
+                  );
+                },
+                child: const Text('Link M-Pesa Account'),
+              ),
+            ],
           ),
         ),
       ),

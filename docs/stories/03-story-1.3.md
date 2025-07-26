@@ -24,10 +24,10 @@
 Completed
 
 ### Completion Notes
-- Added `google_sign_in` and `sign_in_with_apple` dependencies.
-- Created a `SocialAuthButtons` widget to encapsulate the social login logic.
-- Added the `SocialAuthButtons` widget to both the `LoginScreen` and `SignUpScreen`.
-- Implemented the native sign-in flows for both Google and Apple.
+- Added `supabase_auth_ui` dependency.
+- Replaced the custom `SocialAuthButtons` widget with the `SupaSocialsAuth` widget from the `supabase_auth_ui` package.
+- The `SupaSocialsAuth` widget handles the native sign-in flows for both Google and Apple.
+- On successful authentication, the user is navigated to the home screen.
 
 ### File List
 - `pubspec.yaml`
@@ -36,7 +36,7 @@ Completed
 - `lib/src/features/auth/presentation/screens/signup_screen.dart`
 
 ### Change Log
-- **MODIFIED**: `pubspec.yaml` - Added `google_sign_in` and `sign_in_with_apple`.
-- **ADDED**: `lib/src/features/auth/presentation/widgets/social_auth_buttons.dart` - New file.
-- **MODIFIED**: `lib/src/features/auth/presentation/screens/login_screen.dart` - Added `SocialAuthButtons`.
-- **MODIFIED**: `lib/src/features/auth/presentation/screens/signup_screen.dart` - Added `SocialAuthButtons`.
+- **MODIFIED**: `pubspec.yaml` - Added `supabase_auth_ui`.
+- **MODIFIED**: `lib/src/features/auth/presentation/widgets/social_auth_buttons.dart` - Replaced with `SupaSocialsAuth`.
+- **MODIFIED**: `lib/src/features/auth/presentation/screens/login_screen.dart` - No functional change, but the social buttons are now powered by `SupaSocialsAuth`.
+- **MODIFIED**: `lib/src/features/auth/presentation/screens/signup_screen.dart` - No functional change, but the social buttons are now powered by `SupaSocialsAuth`.
