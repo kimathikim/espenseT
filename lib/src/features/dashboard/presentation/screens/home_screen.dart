@@ -42,6 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
         title: const Text('Dashboard'),
         actions: [
@@ -52,8 +53,18 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      body: const Center(
-        child: Text('Welcome to your dashboard!'),
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        decoration: const BoxDecoration(
+          gradient: AppColors.primaryGradient,
+        ),
+        child: const Center(
+          child: Text(
+            'Welcome to your dashboard!',
+            style: TextStyle(color: AppColors.whiteText, fontSize: 24),
+          ),
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
