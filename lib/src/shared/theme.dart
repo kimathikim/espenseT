@@ -221,11 +221,6 @@ class AppTheme {
       appBarTheme: AppBarTheme(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        flexibleSpace: Container(
-          decoration: const BoxDecoration(
-            gradient: AppColors.primaryGradient,
-          ),
-        ),
         titleTextStyle: GoogleFonts.poppins(
           color: AppColors.whiteText,
           fontSize: 20,
