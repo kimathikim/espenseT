@@ -48,7 +48,7 @@ serve(async (req) => {
     const transactions = await mpesaResponse.json();
 
     // 4. Insert new transactions into the Supabase database
-    const { error: insertError } = await supabase.from("transactions").insert(
+    const { error: insertError } = await supabase.from("expenses").insert(
       transactions.map((tx: any) => ({
         description: tx.description,
         amount: tx.amount,

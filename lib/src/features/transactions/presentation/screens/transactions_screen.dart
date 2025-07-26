@@ -1,5 +1,5 @@
 import 'package:expensetracker/src/features/transactions/data/transaction_repository.dart';
-import 'package:expensetracker/src/features/transactions/domain/transaction.dart';
+import 'package:expensetracker/src/features/transactions/domain/expense.dart';
 import 'package:flutter/material.dart';
 import 'package:expensetracker/src/shared/theme.dart';
 
@@ -11,7 +11,7 @@ class TransactionsScreen extends StatefulWidget {
 }
 
 class _TransactionsScreenState extends State<TransactionsScreen> {
-  late Future<List<Transaction>> _transactionsFuture;
+  late Future<List<Expense>> _transactionsFuture;
   final _transactionRepository = TransactionRepository();
 
   @override
@@ -40,12 +40,13 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
         ),
         child: RefreshIndicator(
           onRefresh: _refreshTransactions,
-          child: FutureBuilder<List<Transaction>>(
+          child: FutureBuilder<List<Expense>>(
             future: _transactionsFuture,
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(child: CircularProgressIndicator());
               } else if (snapshot.hasError) {
+                print('Error fetching transactions: ${snapshot.error}');
                 return Center(child: Text('Error: ${snapshot.error}'));
               } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
                 return const Center(child: Text('No transactions found.'));
@@ -66,7 +67,7 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              transaction.description,
+                              transaction.description ?? 'No description',
                               style: const TextStyle(
                                 color: AppColors.whiteText,
                                 fontWeight: FontWeight.bold,
