@@ -1,5 +1,6 @@
 import 'package:expensetracker/src/features/categories/data/category_repository.dart';
 import 'package:expensetracker/src/features/categories/domain/category.dart';
+import 'package:expensetracker/src/features/categories/presentation/screens/add_category_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:expensetracker/src/shared/theme.dart';
 
@@ -60,8 +61,25 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                     margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                     padding: const EdgeInsets.all(16),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
+                        Container(
+                          width: 40,
+                          height: 40,
+                          decoration: BoxDecoration(
+                            color: category.color != null
+                                ? Color(int.parse(category.color!.substring(1, 7), radix: 16) + 0xFF000000)
+                                : Colors.grey,
+                            shape: BoxShape.circle,
+                          ),
+                          child: category.icon != null
+                              ? FaIcon(
+                                  IconData(int.parse(category.icon!), fontFamily: 'FontAwesomeSolid'),
+                                  color: Colors.white,
+                                  size: 20,
+                                )
+                              : null,
+                        ),
+                        const SizedBox(width: 16),
                         Text(
                           category.name,
                           style: const TextStyle(
@@ -69,7 +87,19 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        // TODO: Add edit and delete buttons
+                        const Spacer(),
+                        IconButton(
+                          icon: const Icon(Icons.edit, color: AppColors.whiteText),
+                          onPressed: () {
+                            // TODO: Implement edit category
+                          },
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.delete, color: AppColors.accentRed),
+                          onPressed: () {
+                            // TODO: Implement delete category
+                          },
+                        ),
                       ],
                     ),
                   );
@@ -80,8 +110,13 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // TODO: Navigate to add category screen
+        onPressed: () async {
+          await Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => const AddCategoryScreen(),
+            ),
+          );
+          _refreshCategories();
         },
         child: const Icon(Icons.add),
         tooltip: 'Add Category',

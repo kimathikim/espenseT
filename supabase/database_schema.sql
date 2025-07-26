@@ -5,6 +5,7 @@ CREATE TABLE public.categories (
   user_id uuid NULL,
   name text NOT NULL,
   icon_name text NULL,
+  color text NULL,
   CONSTRAINT categories_pkey PRIMARY KEY (id),
   CONSTRAINT categories_user_id_fkey FOREIGN KEY (user_id) REFERENCES auth.users(id) ON DELETE CASCADE
 );

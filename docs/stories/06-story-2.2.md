@@ -17,3 +17,20 @@
 *   The default categories should be seeded into the database for new users.
 *   The UI for category selection should be intuitive and fast.
 *   All UI components must adhere to the theme defined in `lib/src/shared/theme.dart`.
+
+## Dev Agent Record
+
+### Status
+In Progress
+
+### Completion Notes
+- Created a comprehensive `AddCategoryScreen` that allows users to select a name, icon, and color for their custom categories.
+- Updated the `CategoriesScreen` to navigate to the `AddCategoryScreen`.
+
+### File List
+- `lib/src/features/categories/presentation/screens/add_category_screen.dart`
+- `lib/src/features/categories/presentation/screens/categories_screen.dart`
+
+### Change Log
+- **ADDED**: `lib/src/features/categories/presentation/screens/add_category_screen.dart` - New file.
+- **MODIFIED**: `lib/src/features/categories/presentation/screens/categories_screen.dart` - Added navigation to `AddCategoryScreen`.
