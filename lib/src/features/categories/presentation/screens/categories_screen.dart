@@ -1,8 +1,11 @@
 import 'package:expensetracker/src/features/categories/data/category_repository.dart';
 import 'package:expensetracker/src/features/categories/domain/category.dart';
 import 'package:expensetracker/src/features/categories/presentation/screens/add_category_screen.dart';
+import 'package:expensetracker/src/features/categories/presentation/screens/edit_category_screen.dart';
+import 'package:expensetracker/src/features/categories/presentation/widgets/category_icon_mapper.dart';
 import 'package:flutter/material.dart';
 import 'package:expensetracker/src/shared/theme.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class CategoriesScreen extends StatefulWidget {
   const CategoriesScreen({super.key});
@@ -23,7 +26,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
 
   Future<void> _refreshCategories() async {
     setState(() {
-      _categoriesFuture = _categoryRepository.fetchCategories();
+      _categoriesFuture = _categoryRepository.fetchCategories(forceRefresh: true);
     });
   }
 
@@ -71,13 +74,13 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                                 : Colors.grey,
                             shape: BoxShape.circle,
                           ),
-                          child: category.icon != null
-                              ? FaIcon(
-                                  IconData(int.parse(category.icon!), fontFamily: 'FontAwesomeSolid'),
-                                  color: Colors.white,
-                                  size: 20,
-                                )
-                              : null,
+                          child: Center(
+                            child: FaIcon(
+                              CategoryIconMapper.getIcon(category.icon),
+                              color: Colors.white,
+                              size: 20,
+                            ),
+                          ),
                         ),
                         const SizedBox(width: 16),
                         Text(
@@ -90,14 +93,20 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                         const Spacer(),
                         IconButton(
                           icon: const Icon(Icons.edit, color: AppColors.whiteText),
-                          onPressed: () {
-                            // TODO: Implement edit category
+                          onPressed: () async {
+                            await Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => EditCategoryScreen(category: category),
+                              ),
+                            );
+                            _refreshCategories();
                           },
                         ),
                         IconButton(
                           icon: const Icon(Icons.delete, color: AppColors.accentRed),
-                          onPressed: () {
-                            // TODO: Implement delete category
+                          onPressed: () async {
+                            await CategoryRepository().deleteCategory(category.id);
+                            _refreshCategories();
                           },
                         ),
                       ],

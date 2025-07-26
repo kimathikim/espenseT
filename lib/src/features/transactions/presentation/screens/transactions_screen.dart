@@ -22,7 +22,7 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
 
   Future<void> _refreshTransactions() async {
     setState(() {
-      _transactionsFuture = _transactionRepository.fetchTransactions();
+      _transactionsFuture = _transactionRepository.fetchTransactions(forceRefresh: true);
     });
   }
 

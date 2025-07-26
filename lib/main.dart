@@ -1,3 +1,4 @@
+import 'package:expensetracker/src/core/services/database_service.dart';
 import 'package:expensetracker/src/features/auth/presentation/screens/splash_screen.dart';
 import 'package:expensetracker/src/shared/theme.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,8 @@ void main() async {
     url: dotenv.env['SUPABASE_URL']!,
     anonKey: dotenv.env['SUPABASE_ANON_KEY']!,
   );
+
+  await DatabaseService().init();
 
   runApp(const MyApp());
 }
