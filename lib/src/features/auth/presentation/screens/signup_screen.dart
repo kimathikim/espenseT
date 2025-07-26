@@ -1,3 +1,4 @@
+import 'package:expensetracker/src/features/auth/presentation/widgets/social_auth_buttons.dart';
 import 'package:expensetracker/src/shared/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -117,7 +118,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     TextButton(
                       onPressed: () => Navigator.of(context).pop(),
                       child: const Text('Already have an account? Log in'),
-                    )
+                    ),
+                    const SizedBox(height: 16),
+                    const SocialAuthButtons(),
                   ],
                 ),
               ),

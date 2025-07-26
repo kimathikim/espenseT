@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:expensetracker/src/features/auth/presentation/screens/signup_screen.dart';
+import 'package:expensetracker/src/features/auth/presentation/widgets/social_auth_buttons.dart';
 import 'package:expensetracker/src/features/dashboard/presentation/screens/home_screen.dart';
 import 'package:expensetracker/src/shared/theme.dart';
 
@@ -121,6 +122,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       },
                       child: const Text('Don\'t have an account? Sign up'),
                     ),
+                    const SizedBox(height: 16),
+                    const SocialAuthButtons(),
                   ],
                 ),
               ),

@@ -17,3 +17,26 @@
 *   Follow the official Supabase documentation for implementing Google and Apple sign-in with Flutter.
 *   This will require configuration in the Google Cloud Console and Apple Developer portal.
 *   All UI components must adhere to the theme defined in `lib/src/shared/theme.dart`.
+
+## Dev Agent Record
+
+### Status
+Completed
+
+### Completion Notes
+- Added `google_sign_in` and `sign_in_with_apple` dependencies.
+- Created a `SocialAuthButtons` widget to encapsulate the social login logic.
+- Added the `SocialAuthButtons` widget to both the `LoginScreen` and `SignUpScreen`.
+- Implemented the native sign-in flows for both Google and Apple.
+
+### File List
+- `pubspec.yaml`
+- `lib/src/features/auth/presentation/widgets/social_auth_buttons.dart`
+- `lib/src/features/auth/presentation/screens/login_screen.dart`
+- `lib/src/features/auth/presentation/screens/signup_screen.dart`
+
+### Change Log
+- **MODIFIED**: `pubspec.yaml` - Added `google_sign_in` and `sign_in_with_apple`.
+- **ADDED**: `lib/src/features/auth/presentation/widgets/social_auth_buttons.dart` - New file.
+- **MODIFIED**: `lib/src/features/auth/presentation/screens/login_screen.dart` - Added `SocialAuthButtons`.
+- **MODIFIED**: `lib/src/features/auth/presentation/screens/signup_screen.dart` - Added `SocialAuthButtons`.
