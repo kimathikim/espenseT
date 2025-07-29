@@ -109,24 +109,41 @@ class _CategoriesScreenState extends State<CategoriesScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.transparent,
-      appBar: _buildAppBar(),
       body: Container(
-        width: double.infinity,
-        height: double.infinity,
         decoration: const BoxDecoration(
           gradient: AppColors.primaryGradient,
         ),
-        child: FadeTransition(
-          opacity: _fadeAnimation,
-          child: SlideTransition(
-            position: _slideAnimation,
-            child: RefreshIndicator(
-              onRefresh: _loadCategories,
-              color: AppColors.accent,
-              backgroundColor: AppColors.cardBackground,
-              child: _buildBody(),
-            ),
+        child: SafeArea(
+          child: Column(
+            children: [
+              // Header (similar to dashboard)
+              _buildHeader(),
+
+              // Content area with card background
+              Expanded(
+                child: Container(
+                  decoration: const BoxDecoration(
+                    color: AppColors.cardBackground,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(32),
+                      topRight: Radius.circular(32),
+                    ),
+                  ),
+                  child: FadeTransition(
+                    opacity: _fadeAnimation,
+                    child: SlideTransition(
+                      position: _slideAnimation,
+                      child: RefreshIndicator(
+                        onRefresh: _loadCategories,
+                        color: AppColors.accent,
+                        backgroundColor: AppColors.cardBackground,
+                        child: _buildBody(),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),
@@ -134,67 +151,102 @@ class _CategoriesScreenState extends State<CategoriesScreen>
     );
   }
 
-  PreferredSizeWidget _buildAppBar() {
-    return AppBar(
-      backgroundColor: Colors.transparent,
-      elevation: 0,
-      title: _isSearching ? _buildSearchField() : const Text(
-        'Categories',
-        style: TextStyle(
-          color: AppColors.whiteText,
-          fontWeight: FontWeight.bold,
-          fontSize: 24,
-        ),
-      ),
-      actions: [
-        IconButton(
-          icon: Icon(
-            _isSearching ? Icons.close : Icons.search,
-            color: AppColors.whiteText,
-          ),
-          onPressed: _toggleSearch,
-        ),
-        PopupMenuButton<String>(
-          icon: const Icon(Icons.more_vert, color: AppColors.whiteText),
-          color: AppColors.cardBackground,
-          onSelected: _handleMenuAction,
-          itemBuilder: (context) => [
-            const PopupMenuItem(
-              value: 'refresh',
-              child: Row(
+  Widget _buildHeader() {
+    return Padding(
+      padding: const EdgeInsets.all(24.0),
+      child: Column(
+        children: [
+          // Title and actions row
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Icon(Icons.refresh, color: AppColors.whiteText),
-                  SizedBox(width: 8),
-                  Text('Refresh', style: TextStyle(color: AppColors.whiteText)),
+                  const Text(
+                    'Categories',
+                    style: TextStyle(
+                      color: AppColors.whiteText,
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    'Manage your expense categories',
+                    style: TextStyle(
+                      color: AppColors.whiteText.withOpacity(0.8),
+                      fontSize: 16,
+                    ),
+                  ),
                 ],
               ),
-            ),
-            const PopupMenuItem(
-              value: 'help',
-              child: Row(
+              Row(
                 children: [
-                  Icon(Icons.help_outline, color: AppColors.whiteText),
-                  SizedBox(width: 8),
-                  Text('Help', style: TextStyle(color: AppColors.whiteText)),
+                  IconButton(
+                    icon: Icon(
+                      _isSearching ? Icons.close : Icons.search,
+                      color: AppColors.whiteText,
+                      size: 28,
+                    ),
+                    onPressed: _toggleSearch,
+                  ),
+                  PopupMenuButton<String>(
+                    icon: const Icon(Icons.more_vert, color: AppColors.whiteText, size: 28),
+                    color: AppColors.cardBackground,
+                    onSelected: _handleMenuAction,
+                    itemBuilder: (context) => [
+                      const PopupMenuItem(
+                        value: 'refresh',
+                        child: Row(
+                          children: [
+                            Icon(Icons.refresh, color: AppColors.darkText),
+                            SizedBox(width: 8),
+                            Text('Refresh', style: TextStyle(color: AppColors.darkText)),
+                          ],
+                        ),
+                      ),
+                      const PopupMenuItem(
+                        value: 'help',
+                        child: Row(
+                          children: [
+                            Icon(Icons.help_outline, color: AppColors.darkText),
+                            SizedBox(width: 8),
+                            Text('Help', style: TextStyle(color: AppColors.darkText)),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ],
+              ),
+            ],
+          ),
+
+          // Search bar (when active)
+          if (_isSearching) ...[
+            const SizedBox(height: 16),
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.2),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: TextField(
+                controller: _searchController,
+                autofocus: true,
+                style: const TextStyle(color: AppColors.whiteText),
+                decoration: InputDecoration(
+                  hintText: 'Search categories...',
+                  hintStyle: TextStyle(color: AppColors.whiteText.withOpacity(0.7)),
+                  prefixIcon: const Icon(Icons.search, color: AppColors.whiteText),
+                  border: InputBorder.none,
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                ),
+                onChanged: (value) => _onSearchChanged(),
               ),
             ),
           ],
-        ),
-      ],
-    );
-  }
-
-  Widget _buildSearchField() {
-    return TextField(
-      controller: _searchController,
-      autofocus: true,
-      style: const TextStyle(color: AppColors.whiteText),
-      decoration: const InputDecoration(
-        hintText: 'Search categories...',
-        hintStyle: TextStyle(color: AppColors.whiteText70),
-        border: InputBorder.none,
-        contentPadding: EdgeInsets.symmetric(horizontal: 16),
+        ],
       ),
     );
   }
@@ -227,7 +279,7 @@ class _CategoriesScreenState extends State<CategoriesScreen>
           Text(
             'Loading categories...',
             style: TextStyle(
-              color: AppColors.whiteText70,
+              color: AppColors.darkText,
               fontSize: 16,
             ),
           ),
@@ -250,7 +302,7 @@ class _CategoriesScreenState extends State<CategoriesScreen>
           Text(
             'Error loading categories',
             style: const TextStyle(
-              color: AppColors.whiteText,
+              color: AppColors.darkText,
               fontSize: 18,
               fontWeight: FontWeight.bold,
             ),
@@ -259,7 +311,7 @@ class _CategoriesScreenState extends State<CategoriesScreen>
           Text(
             _error!,
             style: const TextStyle(
-              color: AppColors.whiteText70,
+              color: AppColors.greyText,
               fontSize: 14,
             ),
             textAlign: TextAlign.center,
@@ -369,13 +421,13 @@ class _CategoriesScreenState extends State<CategoriesScreen>
                   const Icon(
                     Icons.add_circle_outline,
                     size: 48,
-                    color: AppColors.whiteText70,
+                    color: AppColors.greyText,
                   ),
                   const SizedBox(height: 16),
                   const Text(
                     'Create Your First Category',
                     style: TextStyle(
-                      color: AppColors.whiteText,
+                      color: AppColors.darkText,
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                     ),
@@ -384,7 +436,7 @@ class _CategoriesScreenState extends State<CategoriesScreen>
                   const Text(
                     'Add custom categories to better organize your expenses',
                     style: TextStyle(
-                      color: AppColors.whiteText70,
+                      color: AppColors.greyText,
                       fontSize: 14,
                     ),
                     textAlign: TextAlign.center,
@@ -414,7 +466,7 @@ class _CategoriesScreenState extends State<CategoriesScreen>
         Text(
           title,
           style: const TextStyle(
-            color: AppColors.whiteText,
+            color: AppColors.darkText,
             fontSize: 18,
             fontWeight: FontWeight.bold,
           ),
@@ -596,13 +648,13 @@ class _CategoriesScreenState extends State<CategoriesScreen>
         backgroundColor: AppColors.cardBackground,
         title: const Text(
           'Category Management',
-          style: TextStyle(color: AppColors.whiteText),
+          style: TextStyle(color: AppColors.darkText),
         ),
         content: const Text(
           'Default categories are provided by the app and cannot be edited or deleted.\n\n'
           'You can create custom categories with your own names, icons, and colors.\n\n'
           'Custom categories can be edited or deleted at any time.',
-          style: TextStyle(color: AppColors.whiteText70),
+          style: TextStyle(color: AppColors.greyText),
         ),
         actions: [
           TextButton(

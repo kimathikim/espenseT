@@ -19,16 +19,10 @@ class CategoryFormModal extends StatefulWidget {
   State<CategoryFormModal> createState() => _CategoryFormModalState();
 }
 
-class _CategoryFormModalState extends State<CategoryFormModal>
-    with TickerProviderStateMixin {
+class _CategoryFormModalState extends State<CategoryFormModal> {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   final CategoryRepository _categoryRepository = CategoryRepository();
-  
-  late AnimationController _animationController;
-  late AnimationController _colorAnimationController;
-  late Animation<double> _slideAnimation;
-  late Animation<double> _fadeAnimation;
   
   String _selectedIcon = 'faFolder';
   String _selectedColor = '#667eea';
@@ -48,15 +42,14 @@ class _CategoryFormModalState extends State<CategoryFormModal>
     'faUtensils', 'faCar', 'faShoppingBag', 'faFileInvoiceDollar',
     'faGamepad', 'faHeartbeat', 'faGraduationCap', 'faPlane',
     'faBriefcase', 'faSpa', 'faGift', 'faFolder',
-    'faHome', 'faPhone', 'faWifi', 'faGasPump',
-    'faTshirt', 'faBook', 'faMusic', 'faCoffee',
-    'faPizzaSlice', 'faBus', 'faBicycle', 'faFilm',
+    'faHome', 'faShoppingCart', 'faGasPump', 'faTshirt',
+    'faFilm', 'faBook', 'faCoffee', 'faPizzaSlice',
+    'faPhone', 'faLaptop', 'faMusic', 'faPaw',
   ];
 
   @override
   void initState() {
     super.initState();
-    _initAnimations();
     _loadExistingCategories();
     
     if (widget.category != null) {
@@ -64,36 +57,6 @@ class _CategoryFormModalState extends State<CategoryFormModal>
       _selectedIcon = widget.category!.icon ?? 'faFolder';
       _selectedColor = widget.category!.color ?? '#667eea';
     }
-  }
-
-  void _initAnimations() {
-    _animationController = AnimationController(
-      duration: const Duration(milliseconds: 300),
-      vsync: this,
-    );
-    
-    _colorAnimationController = AnimationController(
-      duration: const Duration(milliseconds: 200),
-      vsync: this,
-    );
-    
-    _slideAnimation = Tween<double>(
-      begin: 1.0,
-      end: 0.0,
-    ).animate(CurvedAnimation(
-      parent: _animationController,
-      curve: Curves.easeOutCubic,
-    ));
-    
-    _fadeAnimation = Tween<double>(
-      begin: 0.0,
-      end: 1.0,
-    ).animate(CurvedAnimation(
-      parent: _animationController,
-      curve: Curves.easeInOut,
-    ));
-    
-    _animationController.forward();
   }
 
   Future<void> _loadExistingCategories() async {
@@ -109,45 +72,31 @@ class _CategoryFormModalState extends State<CategoryFormModal>
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: _animationController,
-      builder: (context, child) {
-        return FadeTransition(
-          opacity: _fadeAnimation,
-          child: SlideTransition(
-            position: Tween<Offset>(
-              begin: const Offset(0, 1),
-              end: Offset.zero,
-            ).animate(_slideAnimation),
-            child: Container(
-              height: MediaQuery.of(context).size.height * 0.85,
-              decoration: const BoxDecoration(
-                color: AppColors.cardBackground,
-                borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-              ),
-              child: Column(
-                children: [
-                  _buildHeader(),
-                  Expanded(
-                    child: _buildForm(),
-                  ),
-                  _buildActionButtons(),
-                ],
-              ),
-            ),
+    return Container(
+      height: MediaQuery.of(context).size.height * 0.85,
+      decoration: const BoxDecoration(
+        color: AppColors.cardBackground,
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      child: Column(
+        children: [
+          _buildHeader(),
+          Expanded(
+            child: _buildForm(),
           ),
-        );
-      },
+          _buildActionButtons(),
+        ],
+      ),
     );
   }
 
   Widget _buildHeader() {
     return Container(
       padding: const EdgeInsets.all(20),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         border: Border(
           bottom: BorderSide(
-            color: AppColors.whiteText30,
+            color: AppColors.greyText.withOpacity(0.3),
             width: 0.5,
           ),
         ),
@@ -177,7 +126,7 @@ class _CategoryFormModalState extends State<CategoryFormModal>
                 Text(
                   widget.category == null ? 'Add Category' : 'Edit Category',
                   style: const TextStyle(
-                    color: AppColors.whiteText,
+                    color: AppColors.darkText,
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
@@ -187,7 +136,7 @@ class _CategoryFormModalState extends State<CategoryFormModal>
                       ? 'Create a new custom category'
                       : 'Modify category details',
                   style: const TextStyle(
-                    color: AppColors.whiteText70,
+                    color: AppColors.greyText,
                     fontSize: 14,
                   ),
                 ),
@@ -198,7 +147,7 @@ class _CategoryFormModalState extends State<CategoryFormModal>
             onPressed: () => Navigator.of(context).pop(false),
             icon: const Icon(
               Icons.close,
-              color: AppColors.whiteText70,
+              color: AppColors.greyText,
             ),
           ),
         ],
@@ -207,10 +156,10 @@ class _CategoryFormModalState extends State<CategoryFormModal>
   }
 
   Widget _buildForm() {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.all(20),
-      child: Form(
-        key: _formKey,
+    return Form(
+      key: _formKey,
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.all(20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -234,7 +183,7 @@ class _CategoryFormModalState extends State<CategoryFormModal>
         const Text(
           'Category Name',
           style: TextStyle(
-            color: AppColors.whiteText,
+            color: AppColors.darkText,
             fontSize: 16,
             fontWeight: FontWeight.w600,
           ),
@@ -242,12 +191,12 @@ class _CategoryFormModalState extends State<CategoryFormModal>
         const SizedBox(height: 8),
         TextFormField(
           controller: _nameController,
-          style: const TextStyle(color: AppColors.whiteText),
+          style: const TextStyle(color: AppColors.darkText),
           decoration: InputDecoration(
             hintText: 'Enter category name',
-            hintStyle: const TextStyle(color: AppColors.whiteText50),
+            hintStyle: const TextStyle(color: AppColors.greyText),
             filled: true,
-            fillColor: AppColors.whiteText10,
+            fillColor: Colors.grey.shade100,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
               borderSide: BorderSide.none,
@@ -259,6 +208,7 @@ class _CategoryFormModalState extends State<CategoryFormModal>
           ),
           validator: _validateName,
           textCapitalization: TextCapitalization.words,
+          onChanged: (value) => setState(() {}), // Refresh preview
         ),
       ],
     );
@@ -271,16 +221,16 @@ class _CategoryFormModalState extends State<CategoryFormModal>
         const Text(
           'Icon',
           style: TextStyle(
-            color: AppColors.whiteText,
+            color: AppColors.darkText,
             fontSize: 16,
             fontWeight: FontWeight.w600,
           ),
         ),
         const SizedBox(height: 12),
         Container(
-          height: 200,
+          height: 120,
           decoration: BoxDecoration(
-            color: AppColors.whiteText10,
+            color: Colors.grey.shade100,
             borderRadius: BorderRadius.circular(12),
           ),
           child: GridView.builder(
@@ -306,19 +256,22 @@ class _CategoryFormModalState extends State<CategoryFormModal>
                   decoration: BoxDecoration(
                     color: isSelected 
                         ? _parseColor(_selectedColor).withOpacity(0.3)
-                        : AppColors.whiteText10,
+                        : Colors.white,
                     borderRadius: BorderRadius.circular(8),
-                    border: isSelected 
-                        ? Border.all(color: _parseColor(_selectedColor), width: 2)
-                        : null,
+                    border: Border.all(
+                      color: isSelected 
+                          ? _parseColor(_selectedColor)
+                          : Colors.grey.shade300,
+                      width: isSelected ? 2 : 1,
+                    ),
                   ),
                   child: Center(
                     child: FaIcon(
                       CategoryIconMapper.getIcon(iconName),
                       color: isSelected 
                           ? _parseColor(_selectedColor)
-                          : AppColors.whiteText70,
-                      size: 18,
+                          : AppColors.greyText,
+                      size: 20,
                     ),
                   ),
                 ),
@@ -337,7 +290,7 @@ class _CategoryFormModalState extends State<CategoryFormModal>
         const Text(
           'Color',
           style: TextStyle(
-            color: AppColors.whiteText,
+            color: AppColors.darkText,
             fontSize: 16,
             fontWeight: FontWeight.w600,
           ),
@@ -346,7 +299,7 @@ class _CategoryFormModalState extends State<CategoryFormModal>
         Container(
           height: 120,
           decoration: BoxDecoration(
-            color: AppColors.whiteText10,
+            color: Colors.grey.shade100,
             borderRadius: BorderRadius.circular(12),
           ),
           child: GridView.builder(
@@ -374,8 +327,8 @@ class _CategoryFormModalState extends State<CategoryFormModal>
                     color: color,
                     shape: BoxShape.circle,
                     border: isSelected
-                        ? Border.all(color: AppColors.whiteText, width: 3)
-                        : Border.all(color: AppColors.whiteText30, width: 1),
+                        ? Border.all(color: AppColors.darkText, width: 3)
+                        : Border.all(color: AppColors.greyText.withOpacity(0.3), width: 1),
                     boxShadow: isSelected ? [
                       BoxShadow(
                         color: color.withOpacity(0.5),
@@ -409,7 +362,7 @@ class _CategoryFormModalState extends State<CategoryFormModal>
         const Text(
           'Preview',
           style: TextStyle(
-            color: AppColors.whiteText,
+            color: AppColors.darkText,
             fontSize: 16,
             fontWeight: FontWeight.w600,
           ),
@@ -419,7 +372,7 @@ class _CategoryFormModalState extends State<CategoryFormModal>
           width: double.infinity,
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: AppColors.whiteText10,
+            color: Colors.grey.shade100,
             borderRadius: BorderRadius.circular(12),
           ),
           child: Row(
@@ -457,8 +410,8 @@ class _CategoryFormModalState extends State<CategoryFormModal>
                           : _nameController.text,
                       style: TextStyle(
                         color: _nameController.text.isEmpty
-                            ? AppColors.whiteText50
-                            : AppColors.whiteText,
+                            ? AppColors.greyText
+                            : AppColors.darkText,
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
                       ),
@@ -467,7 +420,7 @@ class _CategoryFormModalState extends State<CategoryFormModal>
                     const Text(
                       'Custom category',
                       style: TextStyle(
-                        color: AppColors.whiteText70,
+                        color: AppColors.greyText,
                         fontSize: 12,
                       ),
                     ),
@@ -484,10 +437,10 @@ class _CategoryFormModalState extends State<CategoryFormModal>
   Widget _buildActionButtons() {
     return Container(
       padding: const EdgeInsets.all(20),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         border: Border(
           top: BorderSide(
-            color: AppColors.whiteText30,
+            color: AppColors.greyText.withOpacity(0.3),
             width: 0.5,
           ),
         ),
@@ -506,7 +459,7 @@ class _CategoryFormModalState extends State<CategoryFormModal>
               child: const Text(
                 'Cancel',
                 style: TextStyle(
-                  color: AppColors.whiteText70,
+                  color: AppColors.greyText,
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
                 ),
@@ -592,7 +545,7 @@ class _CategoryFormModalState extends State<CategoryFormModal>
         icon: _selectedIcon,
         color: _selectedColor,
         userId: user.id,
-        createdAt: widget.category?.createdAt ?? DateTime.now(),
+        createdAt: widget.category?.createdAt,
       );
 
       if (widget.category == null) {
@@ -637,8 +590,6 @@ class _CategoryFormModalState extends State<CategoryFormModal>
 
   @override
   void dispose() {
-    _animationController.dispose();
-    _colorAnimationController.dispose();
     _nameController.dispose();
     super.dispose();
   }

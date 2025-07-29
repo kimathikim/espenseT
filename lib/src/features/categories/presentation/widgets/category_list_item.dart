@@ -122,7 +122,7 @@ class _CategoryListItemState extends State<CategoryListItem>
               child: Text(
                 widget.category.name,
                 style: const TextStyle(
-                  color: AppColors.whiteText,
+                  color: AppColors.darkText,
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                 ),
@@ -155,7 +155,7 @@ class _CategoryListItemState extends State<CategoryListItem>
               ? 'Built-in category'
               : 'Custom category',
           style: const TextStyle(
-            color: AppColors.whiteText70,
+            color: AppColors.greyText,
             fontSize: 12,
           ),
         ),
@@ -170,7 +170,7 @@ class _CategoryListItemState extends State<CategoryListItem>
         Text(
           '${widget.transactionCount ?? 0}',
           style: const TextStyle(
-            color: AppColors.whiteText,
+            color: AppColors.darkText,
             fontSize: 16,
             fontWeight: FontWeight.bold,
           ),
@@ -178,7 +178,7 @@ class _CategoryListItemState extends State<CategoryListItem>
         const Text(
           'transactions',
           style: TextStyle(
-            color: AppColors.whiteText70,
+            color: AppColors.greyText,
             fontSize: 10,
           ),
         ),
@@ -201,7 +201,7 @@ class _CategoryListItemState extends State<CategoryListItem>
     if (widget.isDefault) {
       return const Icon(
         Icons.lock_outline,
-        color: AppColors.whiteText70,
+        color: AppColors.greyText,
         size: 20,
       );
     }
@@ -213,7 +213,7 @@ class _CategoryListItemState extends State<CategoryListItem>
           IconButton(
             icon: const Icon(
               Icons.edit_outlined,
-              color: AppColors.whiteText70,
+              color: AppColors.greyText,
               size: 20,
             ),
             onPressed: () {
