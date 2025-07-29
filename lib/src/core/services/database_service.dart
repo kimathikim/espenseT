@@ -1,8 +1,9 @@
-import 'package:expensetracker/src/core/services/local_database.dart';
+import 'package:flutter/foundation.dart';
+import 'local_database.dart';
 
 class DatabaseService {
   static final DatabaseService _instance = DatabaseService._internal();
-  late AppDatabase _database;
+  AppDatabase? _database;
 
   factory DatabaseService() {
     return _instance;
@@ -10,9 +11,15 @@ class DatabaseService {
 
   DatabaseService._internal();
 
-  AppDatabase get database => _database;
+  AppDatabase? get database => _database;
 
   Future<void> init() async {
-    _database = AppDatabase();
+    try {
+      _database = AppDatabase();
+      debugPrint('Database service initialized successfully');
+    } catch (e) {
+      debugPrint('Failed to initialize database: $e');
+      // Continue without local database - app will work with Supabase only
+    }
   }
 }

@@ -1,0 +1,49 @@
+  ~/CODES/expensetracker                                                                                                            Size        Type         Last Modified  
+   .augment                                                                                                                          -   directory   2025-07-26 04:56 AM  
+   .bmad-core                                                                                                                        -   directory   2025-07-25 04:20 PM  
+   .clinerules                                                                                                                       -   directory   2025-07-25 04:20 PM  
+   .cursor                                                                                                                           -   directory   2025-07-25 04:20 PM  
+   .dart_tool                                                                                                                        -   directory   2025-07-26 07:39 AM  
+   .gemini                                                                                                                           -   directory   2025-07-25 04:20 PM  
+   .git                                                                                                                               -   directory   2025-07-26 04:50 AM  
+   .github                                                                                                                            -   directory   2025-07-25 04:20 PM  
+   .idea                                                                                                                             -   directory   2025-07-26 01:52 AM  
+   .vscode                                                                                                                           -   directory   2025-07-25 04:20 PM  
+   android                                                                                                                           -   directory   2025-07-26 07:30 AM  
+   build                                                                                                                             -   directory   2025-07-26 11:22 AM  
+   docs                                                                                                                              -   directory   2025-07-26 09:44 AM  
+   ios                                                                                                                                -   directory   2025-07-26 01:52 AM  
+   lib                                                                                                                                -   directory   2025-07-26 01:55 AM  
+     src                                                                                                                              -   directory   2025-07-26 01:55 AM  
+   │   core                                                                                                                           -   directory   2025-07-26 01:55 AM  
+   │ │   services                                                                                                                     -   directory   2025-07-26 11:32 AM  
+   │ │ │ │  database_service.dart                                                                                        󰄱        625 B        dart   2025-07-26 11:32 AM  
+   │ │ │ └  local_database.dart                                                                                          󰄱      2.72 KB        dart   2025-07-26 05:30 AM  
+   │ │   utils                                                                                                                        -   directory   2025-07-26 01:55 AM  
+   │   features                                                                                                                      -   directory   2025-07-26 06:42 AM  
+   │   shared                                                                                                                        -   directory   2025-07-26 02:19 AM  
+   └  main.dart                                                                                                                    961 B        dart   2025-07-26 04:48 AM  
+   linux                                                                                                                             -   directory   2025-07-26 01:52 AM  
+   macos                                                                                                                             -   directory   2025-07-26 01:52 AM  
+   scripts                                                                                                                           -   directory   2025-07-26 09:43 AM  
+   supabase                                                                                                                           -   directory   2025-07-26 08:13 AM  
+     .temp                                                                                                                           -   directory   2025-07-26 08:19 AM  
+     functions                                                                                                                        -   directory   2025-07-26 08:40 AM  
+   └ 󰆼 database_schema.sql                                                                                                󰄱      9.68 KB         sql   2025-07-26 09:17 AM  
+   test                                                                                                                               -   directory   2025-07-26 01:52 AM  
+   web                                                                                                                               -   directory   2025-07-26 01:52 AM  
+   web-bundles                                                                                                                       -   directory   2025-07-25 04:20 PM  
+   windows                                                                                                                           -   directory   2025-07-26 01:52 AM  
+    .env                                                                                                                          368 B         env   2025-07-26 02:27 AM  
+   * .env.example                                                                                                                   212 B     example   2025-07-26 02:25 AM  
+   * .flutter-plugins-dependencies                                                                                               9.71 KB  flutter-p…   2025-07-26 07:18 AM  
+   󰊢 .gitignore                                                                                                                     963 B   gitignore   2025-07-26 02:39 AM  
+   * .metadata                                                                                                                    1.67 KB    metadata   2025-07-26 01:52 AM  
+    LICENSE                                                                                                                     1.06 KB        file   2025-07-21 09:31 AM  
+    README.md                                                                                                            󰄱      4.65 KB          md   2025-07-21 09:31 AM  
+    analysis_options.yaml                                                                                                        1.39 KB        yaml   2025-07-26 01:52 AM  
+    build_apk.sh                                                                                                                1.04 KB          sh   2025-07-26 07:53 AM  
+   * expensetracker.iml                                                                                                            842 B         iml   2025-07-26 01:52 AM  
+   * pubspec.lock                                                                                                         󰄱      33.2 KB        lock   2025-07-26 08:55 AM  
+    pubspec.yaml                                                                                                         󰄱      4.18 KB        yaml   2025-07-26 08:47 AM  
+   󰍔 supabase_presentation.md                                                                                                    3.68 KB          md   2025-07-26 10:50 AM  
