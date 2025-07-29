@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:expensetracker/src/features/transactions/presentation/screens/transactions_screen.dart';
+import 'package:expensetracker/src/features/categories/presentation/screens/categories_screen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:expensetracker/src/shared/theme.dart';
 import 'package:expensetracker/src/features/transactions/data/expense_service.dart';
@@ -765,13 +766,6 @@ class CategoriesTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Categories'),
-      ),
-      body: const Center(
-        child: Text('Categories - Coming Soon'),
-      ),
-    );
+    return const CategoriesScreen();
   }
 }

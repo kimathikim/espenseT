@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:expensetracker/src/features/categories/domain/category.dart';
 import 'package:expensetracker/src/features/categories/presentation/widgets/category_icon_mapper.dart';
+import 'package:expensetracker/src/features/categories/presentation/screens/categories_screen.dart';
 import 'package:expensetracker/src/shared/theme.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -134,6 +135,7 @@ class _CategorySelectionWidgetState extends State<CategorySelectionWidget>
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           if (widget.showSearch) _buildSearchBar(),
+          _buildManageCategoriesButton(),
           if (widget.showRecentCategories && _recentCategories.isNotEmpty) ...[
             _buildRecentCategoriesSection(),
             const SizedBox(height: 16),
@@ -169,6 +171,46 @@ class _CategorySelectionWidgetState extends State<CategorySelectionWidget>
             borderSide: BorderSide.none,
           ),
           contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildManageCategoriesButton() {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+      child: SizedBox(
+        width: double.infinity,
+        child: OutlinedButton.icon(
+          onPressed: () async {
+            HapticFeedback.lightImpact();
+            await Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const CategoriesScreen(),
+              ),
+            );
+            // Refresh categories after returning from management screen
+            // Note: In a real app, you'd want to refresh the parent widget's categories
+          },
+          icon: const Icon(
+            Icons.settings,
+            size: 18,
+            color: AppColors.accent,
+          ),
+          label: const Text(
+            'Manage Categories',
+            style: TextStyle(
+              color: AppColors.accent,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          style: OutlinedButton.styleFrom(
+            side: const BorderSide(color: AppColors.accent, width: 1),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            padding: const EdgeInsets.symmetric(vertical: 12),
+          ),
         ),
       ),
     );

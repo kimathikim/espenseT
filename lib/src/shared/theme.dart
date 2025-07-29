@@ -27,6 +27,10 @@ class AppColors {
 
   // Text colors
   static const whiteText = Colors.white;
+  static const whiteText70 = Color(0xB3FFFFFF); // 70% opacity white
+  static const whiteText50 = Color(0x80FFFFFF); // 50% opacity white
+  static const whiteText30 = Color(0x4DFFFFFF); // 30% opacity white
+  static const whiteText10 = Color(0x1AFFFFFF); // 10% opacity white
   static const darkText = Color(0xFF2D3748);
   static const greyText = Color(0xFF718096);
 

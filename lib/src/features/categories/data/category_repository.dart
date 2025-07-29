@@ -50,6 +50,22 @@ class CategoryRepository {
     }
   }
 
+  Future<void> createCategory(domain.Category category) async {
+    try {
+      final categoryData = category.toJson();
+      // Remove id for creation, let database generate it
+      categoryData.remove('id');
+
+      await _client
+          .from('categories')
+          .insert(categoryData);
+
+      await _fetchFromSupabase(); // Refresh local cache
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   Future<void> updateCategory(domain.Category category) async {
     try {
       await _client
